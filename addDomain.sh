@@ -26,4 +26,4 @@ echo "<VirtualHost *:80>
 </VirtualHost>" > /etc/apache2/sites-available/$domain.conf
 a2ensite $domain
 systemctl restart apache2
-runuser -l pi -c 'git clone git@github.com:mikeylinton/mikeylinton/'$domain'.git /var/www/'$domain
+runuser -l pi -c 'eval `ssh-agent -s` && ssh-add /home/pi/.ssh/github.id_ed25519 && git clone git@github.com:mikeylinton/'$domain'.git /var/www/'$domain
