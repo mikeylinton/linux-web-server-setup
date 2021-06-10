@@ -2,8 +2,10 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo "Not running as root"
     exit
 fi
-rm /etc/ufw/*rules.* #Removes backups
 yes | ufw reset
+echo "Removing backups..."
+rm /etc/ufw/*rules.*
+echo "Done.";echo ""
 ufw default deny incoming comment "Default Deny all incomming connections"
 ufw default deny outgoing comment "Default Deny all outgoing connections"
 ufw allow out ssh comment "Outgoing SSH connections e.g. Git"
