@@ -10,7 +10,8 @@ fi
 domain=$1
 mkdir /var/www/$domain
 mkdir /var/www/$domain/public_html
-chown -R www-data: /var/www/$domain
+chown -R pi:www-data /var/www/$domain
+sudo chmod -R g+s /var/www/$domain
 touch /etc/apache2/sites-available/$domain.conf
 echo "<VirtualHost *:80>
         ServerName "$domain"
