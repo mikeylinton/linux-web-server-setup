@@ -12,6 +12,7 @@ mkdir /var/www/$domain
 mkdir /var/www/$domain/public_html
 chown -R pi:www-data /var/www/$domain
 chmod -R g+s /var/www/$domain
+git clone git@github.com:mikeylinton/$domain.git /var/www/$domain
 touch /etc/apache2/sites-available/$domain.conf
 echo "<VirtualHost *:80>
         ServerName "$domain"
