@@ -9,7 +9,6 @@ if [ "$1" = "" ] ; then
 fi
 domain=$1
 mkdir /var/www/$domain
-mkdir /var/www/$domain/public_html
 chown -R pi:www-data /var/www/$domain
 chmod -R g+s /var/www/$domain
 git clone git@github.com:mikeylinton/$domain.git /var/www/$domain
