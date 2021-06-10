@@ -5,6 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 if [ "$1" = "" ] ; then
         echo "Usage: ./"$0" DomainName"
+        exit
 fi
 domain=$1
 mkdir /var/www/$domain
