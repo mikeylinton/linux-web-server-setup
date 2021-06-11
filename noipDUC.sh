@@ -6,7 +6,7 @@ fi
 cd /usr/local/src
 wget http://www.no-ip.com/client/linux/noip-duc-linux.tar.gz
 tar xzf noip-duc-linux.tar.gz
-cd no-ip-*
+cd noip-2.1.9-1
 make
 make install
 /usr/local/bin/noip2
