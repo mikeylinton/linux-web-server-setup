@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-        echo "Not running as root"
+        echo "This script must be run as root"
         exit
 fi
 printf "\nServerTokens Prod\nServerSignature  Off\n" >> /etc/apache2/conf-enabled/security.conf
