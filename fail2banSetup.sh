@@ -9,6 +9,7 @@ cp jail.conf jail.local
 find . -name 'jail.local' -exec sed -i -e 's/logpath\s*=\s*%(apache_error_log)s//g' {} \;
 find . -name 'jail.local' -exec sed -i -e 's/logpath\s*=\s*%(apache_access_log)s//g' {} \;
 find . -name 'jail.local' -exec sed -i -e 's/logpath\s*=\s*%(nginx_access_log)s//g' {} \;
+find . -name 'jail.local' -exec sed -i -e 's/\s*%(apache_access_log)s//g' {} \;
 #apache-404 jail
 find . -name 'jail.local' -exec sed -i -e 's/\[apache-auth\]/\[apache-404\]\nenabled = true\nport = http,https\nfilter = apache-404\nlogpath = \/var\/log\/fail2ban\/apache-404.log\nbantime = 3600\nfindtime = 600\nmaxretry = 5\n\n\[apache-auth\]/g' {} \;
 #apache-auth jail
