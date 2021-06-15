@@ -37,7 +37,7 @@ touch apache-noscript.log
 touch apache-overflows.log
 touch php-url-fopen.log
 cd /etc/fail2ban/filter.d/
-printf "[Definition]\nfailregex = <HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 403 *" > apache-forbidden.conf
-printf "[Definition]\nfailregex = <HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 503 *\n<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 500 *\n<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 404 451 *" > apache-unavailable.conf
+printf "[Definition]\nfailregex = ^<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 403 *" > apache-forbidden.conf
+printf "[Definition]\nfailregex = ^<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 503 *\n^<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 500 *\n^<HOST> - - .*HTTP/[0-9]+(.[0-9]+)?\" 404 451 *" > apache-unavailable.conf
 systemctl restart fail2ban
 fail2ban-client status
