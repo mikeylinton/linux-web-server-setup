@@ -10,7 +10,6 @@ fi
 domain=$1
 mkdir /var/www/$domain
 chown -R pi:www-data /var/www/$domain
-chmod -R g+s /var/www/$domain
 touch /etc/apache2/sites-available/$domain.conf
 echo "<VirtualHost *:80>
         ServerName "$domain"
@@ -26,4 +25,4 @@ echo "<VirtualHost *:80>
 </VirtualHost>" > /etc/apache2/sites-available/$domain.conf
 a2ensite $domain
 systemctl restart apache2
-runuser -l pi -c 'eval `ssh-agent -s` && ssh-add /home/pi/.ssh/github.id_ed25519 && git clone git@github.com:mikeylinton/'$domain'.git /var/www/'$domain
+#runuser -l pi -c 'eval `ssh-agent -s` && ssh-add /home/pi/.ssh/github.id_ed25519 && git clone git@github.com:mikeylinton/'$domain'.git /var/www/'$domain
