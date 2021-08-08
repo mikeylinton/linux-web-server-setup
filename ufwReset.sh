@@ -15,5 +15,7 @@ ufw allow in https comment "Allow HTTPS access to Apache2 Server"
 ufw allow out https comment "APT Repositories"
 ufw allow out 53 comment "Resolve DNS services"
 ufw allow in from 192.168.0.0/24 to any port 22 proto tcp comment "Local SSH connestions"
+ufw allow out 123 comment "Time date sync"
+ufw allow out 587 comment "PHPMailer Gmail port"
 ufw logging on
 yes | ufw enable
