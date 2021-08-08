@@ -16,7 +16,7 @@ echo "<VirtualHost *:80>
         ServerAlias "$domain"
         ServerAdmin webmaster@"$domain"
         DocumentRoot /var/www/"$domain"/public_html
-        Alias /favicon.ico /var/www/"$domain"/public_html/favicon.ico
+        Alias /favicon.ico /var/www/"$domain"/public_html/requiredfavicon.ico
         <Directory “/var/www/"$domain"/public_html”>
                 Options -Indexes +FollowSymLinks
                 AllowOverride All
