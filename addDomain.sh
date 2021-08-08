@@ -25,7 +25,7 @@ echo "<VirtualHost *:80>
         CustomLog \${APACHE_LOG_DIR}/"$domain"-access.log combined
 </VirtualHost>" > /etc/apache2/sites-available/$domain.conf
 printf "<Directory /var/www/"$domain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
-printf "<Directory /var/www/"$domain"/public_html/required>\n\tAllowOverride None\n\tRequire all denied\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
+printf "<Directory /var/www/"$domain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
 a2ensite $domain
 systemctl restart apache2
 #runuser -l pi -c 'eval `ssh-agent -s` && ssh-add /home/pi/.ssh/github.id_ed25519 && git clone git@github.com:mikeylinton/'$domain'.git /var/www/'$domain
