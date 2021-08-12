@@ -35,10 +35,9 @@ echo "<VirtualHost *:80>
         ErrorLog \${APACHE_LOG_DIR}/"$subDomain"."$domain"-error.log
         CustomLog \${APACHE_LOG_DIR}/"$subDomain"."$domain"-access.log combined
 </VirtualHost>" > /etc/apache2/sites-available/"$subDomain".$domain.conf
-printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Direct
-ory>\n" >> /etc/apache2/conf-enabled/security.conf
+printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
 printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
 printf "<Directory /var/www/"$domain"/"$subDomain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
 a2ensite $domain
 a2ensite $subDomain.$domain
-service restart apache2
+systemctl reload apache2
