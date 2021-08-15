@@ -5,3 +5,4 @@ fi
 apt update
 apt upgrade -y
 apt install apache2 php libapache2-mod-php ufw fail2ban neovim git -y
+reboot
