@@ -34,6 +34,8 @@ echo "<VirtualHost *:80>
         </Directory>
         ErrorLog \${APACHE_LOG_DIR}/"$subDomain"."$domain"-error.log
         CustomLog \${APACHE_LOG_DIR}/"$subDomain"."$domain"-access.log combined
+        ErrorDocument 404 /404/
+        ErrorDocument 403 /404/
 </VirtualHost>" > /etc/apache2/sites-available/"$subDomain".$domain.conf
 printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
 printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
