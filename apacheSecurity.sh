@@ -8,7 +8,8 @@ printf "<Directory /var/www/>\n\tAllowOverride None\n\tRequire all denied\n</Dir
 printf "<Directorymatch \"^/.*/\.git/\">\n\tOrder 'deny,allow'\n\tDeny from all\n</Directorymatch>\n" >> /etc/apache2/conf-enabled/security.conf
 printf "<Files ~ \"^\.git\">\n\tOrder 'deny,allow'\n\tDeny from all\n</Files>\n" >> /etc/apache2/conf-enabled/security.conf
 printf "\nServerName localhost\n" >> /etc/apache2/apache2.conf
-mkdir /etc/apache2/ssl/
 cd /etc/php/7.3/apache2/
 find . -name 'php.ini' -exec sed -i -e 's/expose_php = Off/expose_php = On/g' {} \;
+mkdir /etc/apache2/ssl/
+a2enmod ssl
 systemctl reload apache2
