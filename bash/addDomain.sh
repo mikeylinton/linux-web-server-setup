@@ -31,6 +31,7 @@ echo "<VirtualHost *:80>
         ErrorLog \${APACHE_LOG_DIR}/"$domain"-error.log
         CustomLog \${APACHE_LOG_DIR}/"$domain"-access.log combined
         SSLEngine On
+        SSLProtocol -all +TLSv1.2 +TLSv1.3
         SSLCertificateKeyFile /etc/apache2/ssl/"$domain".key
         SSLCertificateFile    /etc/apache2/ssl/"$domain".crt
         SSLCertificateChainFile /etc/apache2/ssl/"$domain".ca.crt
@@ -67,6 +68,7 @@ echo "<VirtualHost *:80>
         ErrorDocument 404 /404/
         ErrorDocument 403 /404/
         SSLEngine On
+        SSLProtocol -all +TLSv1.2 +TLSv1.3
         SSLCertificateKeyFile /etc/apache2/ssl/"$domain".key
         SSLCertificateFile    /etc/apache2/ssl/"$domain".crt
         SSLCertificateChainFile /etc/apache2/ssl/"$domain".ca.crt
