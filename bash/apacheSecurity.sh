@@ -10,8 +10,8 @@ printf "\nServerTokens Prod\nServerSignature  Off\n" >> conf-enabled/security.co
 printf "<Directory /var/www/>\n\tAllowOverride None\n\tRequire all denied\n</Directory>\n" >> conf-enabled/security.conf
 printf "<Directorymatch \"^/.*/\.git/\">\n\tOrder 'deny,allow'\n\tDeny from all\n</Directorymatch>\n" >> conf-enabled/security.conf
 printf "<Files ~ \"^\.git\">\n\tOrder 'deny,allow'\n\tDeny from all\n</Files>\n" >> conf-enabled/security.conf
-printf "\nServerName localhost\n" >> apache2.conf
-find . -name 'apache2.conf' -exec sed -i -e 's/<Directory \/var\/www\/>/<Directory \/var\/www\/>\n\t<IfModule mod_headers.c>\n\t\tHeader always set X-Content-Type-Options nosniff\n\t<\/IfModule>/g' {} \;
+printf "\n<LimitExcept GET POST HEAD>\n\tdeny from all\n<\/LimitExcept>\n<LocationMatch \"\\/\\.\\\">\n\tRequire all denied\n<\/LocationMatch>\nFileETag None\nTraceEnable off\nServerName localhost\n" >> apache2.conf
+find . -name 'apache2.conf' -exec sed -i -e 's/<Directory \/var\/www\/>/<Directory \/var\/www\/>\n\t<IfModule mod_headers.c>\n\t\tHeader always set X-Content-Type-Options nosniff\n\t\tHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure\n\t\tHeader always append X-Frame-Options SAMEORIGIN\n\t\tHeader set X-XSS-Protection \"1; mode=block\"\n\t<\/IfModule>/g' {} \;
 cd /etc/php/$PHP_Version/apache2/
 find . -name 'php.ini' -exec sed -i -e 's/expose_php = On/expose_php = Off/g' {} \;
 mkdir $Apache2_Directory/ssl/
