@@ -22,4 +22,6 @@ cd /etc/php/$PHP_Version/apache2/
 find . -name 'php.ini' -exec sed -i -e 's/expose_php = On/expose_php = Off/g' {} \;
 mkdir $Apache2_Directory/ssl/
 a2enmod ssl
+a2enmod rewrite
+a2enmod headers
 systemctl reload apache2
