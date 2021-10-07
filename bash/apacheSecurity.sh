@@ -15,6 +15,7 @@ printf "\n<LocationMatch \"\\/\\.\\\">\n\tRequire all denied\n</LocationMatch>\n
 find . -name 'apache2.conf' -exec sed -i -e 's/<Directory \/var\/www\/>/<Directory \/var\/www\/>\n\t<IfModule mod_headers.c>\n\t\tHeader always set X-Content-Type-Options nosniff\n\t\tHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure\n\t\tHeader always append X-Frame-Options SAMEORIGIN\n\t\tHeader set X-XSS-Protection \"1; mode=block\"\n\t<\/IfModule>/g' {} \;
 find . -name 'apache2.conf' -exec sed -i -e 's/Timeout 300/Timeout 60/g' {} \;
 find . -name 'apache2.conf' -exec sed -i -e 's/Options FollowSymLinks/Options -Indexes/g' {} \;
+find . -name 'apache2.conf' -exec sed -i -e 's/Require all granted/Require all denied/g' {} \;
 cd /etc/php/$PHP_Version/apache2/
 find . -name 'php.ini' -exec sed -i -e 's/expose_php = On/expose_php = Off/g' {} \;
 mkdir $Apache2_Directory/ssl/
