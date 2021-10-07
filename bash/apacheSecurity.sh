@@ -12,7 +12,7 @@ printf "<Directorymatch \"^/.*/\.git/\">\n\tOrder 'deny,allow'\n\tDeny from all\
 printf "<Files ~ \"^\.git\">\n\tOrder 'deny,allow'\n\tDeny from all\n</Files>\n" >> conf-enabled/security.conf
 #\n<LimitExcept GET POST HEAD>\n\tdeny from all\n</LimitExcept>
 printf "\n<LocationMatch \"\\/\\.\\\">\n\tRequire all denied\n</LocationMatch>\nFileETag None\nTraceEnable off\nServerName localhost\n" >> apache2.conf
-find . -name 'apache2.conf' -exec sed -i -e 's/<Directory \/var\/www\/>/<Directory \/var\/www\/>\n\t<IfModule mod_headers.c>\n\t\tHeader always set X-Content-Type-Options nosniff\n\t\tHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure\n\t\tHeader always append X-Frame-Options SAMEORIGIN\n\t\tHeader set X-XSS-Protection \"1; mode=block\"\n\t<\/IfModule>\n/g' {} \;
+find . -name 'apache2.conf' -exec sed -i -e 's/<Directory \/var\/www\/>/<Directory \/var\/www\/>\n\t<IfModule mod_headers.c>\n\t\tHeader always set X-Content-Type-Options nosniff\n\t\tHeader edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure\n\t\tHeader always append X-Frame-Options SAMEORIGIN\n\t\tHeader set X-XSS-Protection \"1; mode=block\"\n\t\n\tHeader always set Strict-Transport-Security \"max-age=31536000 ; includeSubdomains;\"<\/IfModule>\n/g' {} \;
 find . -name 'apache2.conf' -exec sed -i -e 's/Timeout 300/Timeout 60/g' {} \;
 find . -name 'apache2.conf' -exec sed -i -e 's/Options FollowSymLinks/Options -Indexes/g' {} \;
 find . -name 'apache2.conf' -exec sed -i -e 's/FollowSymLinks//g' {} \;
