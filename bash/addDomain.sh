@@ -7,11 +7,12 @@ if [ "$2" = "" ] ; then
         echo "Usage: ./"$0" DomainName SubDomain"
         exit
 fi
+Apache2_Directory="/etc/apache2"
 domain=$1
 subDomain=$2
 mkdir /var/www/$domain
 chown -R pi:www-data /var/www/$domain
-touch /etc/apache2/sites-available/$domain.conf
+touch $Apache2_Directory/sites-available/$domain.conf
 
 echo "<VirtualHost *:80>
         ServerName "$domain"
@@ -32,11 +33,11 @@ echo "<VirtualHost *:80>
         CustomLog \${APACHE_LOG_DIR}/"$domain"-access.log combined
         SSLEngine On
         SSLProtocol -all +TLSv1.2 +TLSv1.3
-        SSLCertificateKeyFile /etc/apache2/ssl/"$domain".key
-        SSLCertificateFile    /etc/apache2/ssl/"$domain".crt
-        SSLCertificateChainFile /etc/apache2/ssl/"$domain".ca.crt
+        SSLCertificateKeyFile "$Apache2_Directory"/ssl/"$domain".key
+        SSLCertificateFile    "$Apache2_Directory"/ssl/"$domain".crt
+        SSLCertificateChainFile "$Apache2_Directory"/ssl/"$domain".ca.crt
         Redirect permanent / https://www."$domain"/
-</VirtualHost>" > /etc/apache2/sites-available/$domain.conf
+</VirtualHost>" > $Apache2_Directory/sites-available/$domain.conf
 
 echo "<VirtualHost *:80>
         ServerName "$subDomain"."$domain"
@@ -51,7 +52,7 @@ echo "<VirtualHost *:80>
         CustomLog \${APACHE_LOG_DIR}/"$domain"-access.log combined
         ErrorDocument 404 /404/
         ErrorDocument 403 /404/
-        Redirect permanent / https://www.whistlebarecottage.co.uk/
+        Redirect permanent / https://www."$domain".co.uk/
 </VirtualHost>
 
 <VirtualHost *:443>
@@ -69,13 +70,13 @@ echo "<VirtualHost *:80>
         ErrorDocument 403 /404/
         SSLEngine On
         SSLProtocol -all +TLSv1.2 +TLSv1.3
-        SSLCertificateKeyFile /etc/apache2/ssl/"$domain".key
-        SSLCertificateFile    /etc/apache2/ssl/"$domain".crt
-        SSLCertificateChainFile /etc/apache2/ssl/"$domain".ca.crt
-</VirtualHost>" > /etc/apache2/sites-available/"$subDomain".$domain.conf
-printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
-printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
-printf "<Directory /var/www/"$domain"/"$subDomain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> /etc/apache2/conf-enabled/security.conf
+        SSLCertificateKeyFile "$Apache2_Directory"/ssl/"$domain".key
+        SSLCertificateFile    "$Apache2_Directory"/ssl/"$domain".crt
+        SSLCertificateChainFile "$Apache2_Directory"/ssl/"$domain".ca.crt
+</VirtualHost>" > $Apache2_Directory/sites-available/"$subDomain".$domain.conf
+printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
+printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
+printf "<Directory /var/www/"$domain"/"$subDomain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
 a2ensite $domain
 a2ensite $subDomain.$domain
 systemctl reload apache2
