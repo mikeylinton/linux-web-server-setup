@@ -5,6 +5,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 PHP_Version=$(php -v | grep -o "PHP "[0-9].[0-9] | grep -o [0-9].[0-9])
 Apache2_Directory="/etc/apache2"
+rm $Apache2_Directory/sites-available/*
 rm $Apache2_Directory/sites-enabled/*
 rm $Apache2_Directory/conf-enabled/*
 apt-get --purge remove apache2 -y
