@@ -63,9 +63,7 @@ echo "<VirtualHost *:80>
         ErrorDocument 404 /404/
         ErrorDocument 403 /404/" > $Apache2_Directory/sites-available/"$subDomain".$domain.conf
 if $SSL_Enabled; then
-        printf "\tRedirect permanent / https://www."$domain"/" >> $Apache2_Directory/sites-available/"$subDomain".$domain.conf
-else
-        printf "\tRedirect permanent / http://www."$domain"/" >> $Apache2_Directory/sites-available/"$subDomain".$domain.conf
+        printf "\tRedirect permanent / https://"$subDomain"."$domain"/" >> $Apache2_Directory/sites-available/"$subDomain".$domain.conf
 fi
 printf "\n</VirtualHost>
 
