@@ -13,7 +13,7 @@ apt-get --purge remove apache2 -y
 apt-get autoremove -y
 apt-get install apache2 -y
 cd $Apache2_Directory/conf-enabled/
-printf "\nHeader always set X-Content-Type-Options nosniff\nHeader always edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure\nHeader always set X-Frame-Options SAMEORIGIN\nHeader always set X-XSS-Protection \"1; mode=block\"\nHeader always set Strict-Transport-Security \"max-age=31536000; includeSubdomains\"\n" >> security.conf
+printf "\nHeader unset X-Powered-By\nHeader always set X-XSS-Protection \"1; mode=block\"\nHeader always append X-Frame-Options \"DENY\"\nHeader always set X-Content-Type-Options \"nosniff\"\nHeader set Referrer-Policy \"no-referrer\"\nHeader always set Strict-Transport-Security \"max-age=31536000;includeSubdomains\"\nHeader always edit Set-Cookie ^(.*)\$ \$1;HttpOnly;Secure;SameSite=stric" >> security.conf
 find . -name 'security.conf' -exec sed -i -e 's/ServerSignature On/ServerSignature Off/g' {} \;
 find . -name 'security.conf' -exec sed -i -e 's/ServerTokens OS/ServerTokens Prod/g' {} \;
 printf "<Directory /var/www/>\n\tAllowOverride None\n\tRequire all denied\n</Directory>\n" >> security.conf
