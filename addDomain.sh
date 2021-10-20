@@ -88,9 +88,9 @@ if $SSL_Enabled; then
         SSLCertificateChainFile "$Apache2_Directory"/ssl/"$domain".ca.crt" >> $Apache2_Directory/sites-available/"$subDomain".$domain.conf
 fi
 printf "\n</VirtualHost>\n" >> $Apache2_Directory/sites-available/"$subDomain".$domain.conf
-printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
-printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
-printf "<Directory /var/www/"$domain"/"$subDomain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-enabled/security.conf
+printf "<Directory /var/www/"$domain">\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-avaliable/security.conf
+printf "<Directory /var/www/"$domain"/"$subDomain"/public_html>\n\tAllowOverride All\n\tRequire all granted\n</Directory>\n" >> $Apache2_Directory/conf-avaliable/security.conf
+printf "<Directory /var/www/"$domain"/"$subDomain"/public_html/required>\n\tOptions -Indexes\n</Directory>\n" >> $Apache2_Directory/conf-avaliable/security.conf
 a2ensite $domain
 a2ensite $subDomain.$domain
 systemctl reload apache2
