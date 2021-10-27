@@ -40,7 +40,7 @@ a2dismod mpm_prefork
 a2dismod mpm_event
 a2dismod mpm_worker
 a2enmod proxy_fcgi setenvif
-a2enconf php$PHP_Version-fmp
+a2enconf php$PHP_Version-fpm
 a2enmod mpm_event
 sudo /etc/init.d/apache2 restart
 systemctl reload apache2
